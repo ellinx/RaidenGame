@@ -1,28 +1,19 @@
 package ellinx.plane;
 
 import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.Rectangle;
 import java.awt.event.KeyEvent;
 
 import ellinx.util.GameUtil;
 
-public class Plane {
-	Image img;
-	double x,y;
-	int speed = 10;
-	boolean left,right,up,down;
-	
-	int width,height;
-	
-	public Rectangle getRect() {
-		return new Rectangle((int)x, (int)y, width, height);
-	}
-	
+public class Plane extends GameObject {
+	private boolean left,right,up,down;
+	private boolean alive = true;
 	
 	public void draw(Graphics g) {
-		g.drawImage(img, (int)x, (int)y, null);
-		move();
+		if (alive) {
+			g.drawImage(img, (int)x, (int)y, null);
+			move();
+		}
 	}
 
 	public void move() {
@@ -78,15 +69,26 @@ public class Plane {
 		}
 	}
 
-	public Plane(String imgPath, double x, double y) {
+	public Plane(String imgPath, double x, double y, int speed) {
 		this.img = GameUtil.getImage(imgPath);;
 		this.width = img.getWidth(null);
 		this.height = img.getHeight(null);
 		this.x = x;
 		this.y = y;
+		this.speed = speed;
 	}
 	
 	public Plane() {
 		
 	}
+
+	public boolean isAlive() {
+		return alive;
+	}
+
+	public void setAlive(boolean alive) {
+		this.alive = alive;
+	}
+	
+	
 }
